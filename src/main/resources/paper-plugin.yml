@@ -1,0 +1,7 @@
+name: $name
+version: $version
+main: net.mvndicraft.templateplugin.TemplatePlugin
+api-version: '1.21'
+authors: [ tlm920 ]
+description: $description
+website: mvndicraft.net
