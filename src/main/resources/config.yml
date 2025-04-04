@@ -1,0 +1,35 @@
+debug: false
+
+# Disable the use of bone meal on player click on any circumstances.
+disableAll: false
+
+# cf https://minecraft.wiki/w/Bone_Meal for all the plants on which the bone meal can be used.
+
+# List of plants & block where the bone meal can't be used. (It will cancel the event and player will keep the bone meal)
+disabled:
+  - "minecraft:brown_mushroom"
+  - "minecraft:red_mushroom"
+  - "minecraft:crimson_fungus"
+  - "minecraft:warped_fungus"
+  - "minecraft:cocoa"
+
+# Limit the growth stage of the plant to a certain stage
+# Default config limit to max growth stage -1. To keep vanilla behavior, remove the plant. To disable the instant growth of a plant, set the limit to 0.
+limitGowthStage:
+  wheat: 6
+  carrot: 6
+  potato: 6
+  beetroot: 2
+  melon_stem: 6
+  pumpkin_stem: 6
+  oak_sapling: 1
+  spruce_sapling: 1
+  birch_sapling: 1
+  jungle_sapling: 1
+  acacia_sapling: 1
+  dark_oak_sapling: 1
+  pale_oak_sapling: 1
+  cherry_sapling: 1
+  azalea: 1
+  flowering_azalea: 1
+  mangrove_propagule: 1

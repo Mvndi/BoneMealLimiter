@@ -1,10 +1,9 @@
-package net.mvndicraft.templateplugin;
-
-import org.junit.jupiter.api.Test;
+package net.mvndicraft.bonemeallimiter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
-class TemplatePluginTest {
+class BoneMealLimiterPluginTest {
 
     // example test
     @Test

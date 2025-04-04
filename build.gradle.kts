@@ -1,5 +1,6 @@
 plugins {
     `java-library`
+    id("io.github.goooler.shadow") version "8.1.7"
     `maven-publish`
     checkstyle // Ensures correctly formatted code
     pmd // Code quality checks
@@ -7,25 +8,12 @@ plugins {
 }
 
 group = "net.mvndicraft"
-version = "1.0.0-SNAPSHOT"
-description = "TODO describe your plugin"
+version = "0.0.1"
+description = "Limit the bone meal use with config."
 java.sourceCompatibility = JavaVersion.VERSION_21
 var mainMinecraftVersion = "1.21.4"
+val supportedMinecraftVersions = "1.20 - 1.21.4"
 
-var mvndiUser: String? = project.findProperty("mvndi.user") as String? ?: System.getenv("MVNDI_MVN_USER")
-var mvndiPassword: String? = project.findProperty("mvndi.key") as String? ?: System.getenv("MVNDI_MVN_KEY")
-
-val mvndiRemoteSnapshots = repositories.maven("https://repo.mvndicraft.net/repository/maven-snapshots/") {
-    name = "Mvndi"
-    credentials.username = mvndiUser
-    credentials.password = mvndiPassword
-}
-
-val mvndiRemoteReleases = repositories.maven("https://repo.mvndicraft.net/repository/maven-releases/") {
-    name = "Mvndi"
-    credentials.username = mvndiUser
-    credentials.password = mvndiPassword
-}
 
 repositories {
     mavenLocal()
@@ -33,14 +21,14 @@ repositories {
 
     // Paper
     maven("https://repo.papermc.io/repository/maven-public/")
-
-    // Mvndi
-    mvndiRemoteSnapshots
-    mvndiRemoteReleases
+    maven("https://repo.aikar.co/content/groups/aikar/")
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:$mainMinecraftVersion-R0.1-SNAPSHOT")
+
+    implementation("org.bstats:bstats-bukkit:3.1.0")
+    implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
     testImplementation("com.github.seeseemelk:MockBukkit-v1.21:3.107.0")
@@ -59,20 +47,32 @@ pmd {
 }
 
 publishing {
-    val repo = if (project.version.toString().contains("SNAPSHOT")) mvndiRemoteSnapshots else mvndiRemoteReleases
-    repositories.add(repo)
     publications.create<MavenPublication>("maven") {
         from(components["java"])
-        artifactId = "templateplugin"
     }
 }
 
 tasks {
+    shadowJar {
+        val prefix = "${project.group}.lib"
+        sequenceOf(
+            "co.aikar",
+            "org.bstats"
+        ).forEach { pkg ->
+            relocate(pkg, "$prefix.$pkg")
+        }
+
+        archiveFileName.set("${project.name}-${project.version}.jar")
+    }
+    assemble {
+        dependsOn(shadowJar)
+    }
     processResources {
         val props = mapOf(
             "name" to project.name,
             "version" to project.version,
             "description" to project.description,
+            "apiVersion" to "1.20"
         )
         inputs.properties(props)
         filesMatching("paper-plugin.yml") {
@@ -98,10 +98,14 @@ tasks.withType(xyz.jpenilla.runtask.task.AbstractRun::class) {
     jvmArgs("-XX:+AllowEnhancedClassRedefinition")
 }
 
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
+tasks.register("echoVersion") {
+    doLast {
+        println("${project.version}")
+    }
 }
 
-tasks.withType<Javadoc> {
-    options.encoding = "UTF-8"
+tasks.register("echoReleaseName") {
+    doLast {
+        println("${project.version} [${supportedMinecraftVersions}]")
+    }
 }
