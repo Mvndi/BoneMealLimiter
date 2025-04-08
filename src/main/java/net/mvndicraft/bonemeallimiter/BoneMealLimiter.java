@@ -10,7 +10,8 @@ import org.bukkit.entity.Player;
  * Tool functions
  */
 public class BoneMealLimiter {
-    private BoneMealLimiter() {}
+    private BoneMealLimiter() {
+    }
 
     public static boolean isAffected(@Nullable Player player) {
         return player == null ? false
@@ -19,11 +20,13 @@ public class BoneMealLimiter {
     }
 
     public static boolean isBoneMealDisabledOn(Material material) {
-        return BoneMealLimiterPlugin.getInstance().getConfig().getObject("disabledMaterials", EnumSet.class).contains(material);
+        return BoneMealLimiterPlugin.getInstance().getConfig().getObject("disabledMaterials", EnumSet.class)
+                .contains(material);
     }
 
     public static int getMaxStage(Material material) {
-        Object o = BoneMealLimiterPlugin.getInstance().getConfig().getObject("limitGowthStageMaterials", EnumMap.class).get(material);
+        Object o = BoneMealLimiterPlugin.getInstance().getConfig().getObject("limitGowthStageMaterials", EnumMap.class)
+                .get(material);
         return (o != null && o instanceof Integer i) ? i : Integer.MAX_VALUE;
     }
 }

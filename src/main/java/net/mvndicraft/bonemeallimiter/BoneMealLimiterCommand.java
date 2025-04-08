@@ -14,7 +14,9 @@ public class BoneMealLimiterCommand extends BaseCommand {
     private static final String ADMIN_PERMISSION = "bonemeallimiter.admin";
     @Default
     @Description("Lists the version of the plugin")
-    public static void onBml(CommandSender commandSender) { commandSender.sendMessage(Component.text(BoneMealLimiterPlugin.getInstance().toString())); }
+    public static void onBml(CommandSender commandSender) {
+        commandSender.sendMessage(Component.text(BoneMealLimiterPlugin.getInstance().toString()));
+    }
 
     @Subcommand("reload")
     @Description("Reloads the plugin config and data file")
