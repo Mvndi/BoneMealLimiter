@@ -77,7 +77,7 @@ jobs:
         with:
           allowUpdates: true
           updateOnlyUnreleased: true
-          artifacts: build/libs/.*-${{ steps.version.outputs.version }}.jar
+          artifacts: build/libs/BoneMealLimiter-${{ steps.version.outputs.version }}.jar
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.version.outputs.version }}
           name: ${{ steps.version.outputs.releaseName }}
