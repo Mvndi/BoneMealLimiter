@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "net.mvndicraft"
-version = "1.0.2"
+version = "1.0.3"
 description = "Limit the bone meal use with config."
 java.sourceCompatibility = JavaVersion.VERSION_21
 var mainMinecraftVersion = "1.21.4"
@@ -124,7 +124,7 @@ hangarPublish { // ./gradlew publishPluginPublicationToHangar
         apiKey.set(System.getenv("HANGAR_API_TOKEN"))
         platforms {
             register(Platforms.PAPER) {
-                url = "https://github.com/Mvndi/"+project.name+"/releases/download/1.6.14/"+project.name+"-"+versionString+".jar"
+                url = "https://github.com/Mvndi/"+project.name+"/releases/download/"+versionString+"/"+project.name+"-"+versionString+".jar"
 
                 // Set platform versions from gradle.properties file
                 val versions: List<String> = supportedMinecraftVersions.replace(" ", "").split(",")
