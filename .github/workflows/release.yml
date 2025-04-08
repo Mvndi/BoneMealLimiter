@@ -77,7 +77,7 @@ jobs:
         with:
           allowUpdates: true
           updateOnlyUnreleased: true
-          artifacts: Underilla-Spigot/build/libs/Underilla-Spigot-${{ steps.version.outputs.version }}.jar
+          artifacts: build/libs/.*-${{ steps.version.outputs.version }}.jar
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.version.outputs.version }}
           name: ${{ steps.version.outputs.releaseName }}
@@ -89,4 +89,4 @@ jobs:
         env:
           # Make sure you have added a repository secret in the repository's settings
           HANGAR_API_TOKEN: ${{ secrets.HANGAR_API_TOKEN }}
-        run: ./gradlew publishPluginPublicationToHangar
+        run: ./gradlew assemble publishPluginPublicationToHangar
