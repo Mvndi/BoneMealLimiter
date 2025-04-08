@@ -2,6 +2,7 @@ name: $name
 version: $version
 main: net.mvndicraft.bonemeallimiter.BoneMealLimiterPlugin
 api-version: "$apiVersion"
+folia-supported: true
 authors: [ Hydrolien ]
 description: $description
 website: mvndicraft.net
