@@ -1,27 +1,33 @@
 debug: false
 
 # Disable the use of bone meal on player click on any circumstances.
-disableAll: false
+disable_all: false
 
 # cf https://minecraft.wiki/w/Bone_Meal for all the plants on which the bone meal can be used.
 
 # List of plants & block where the bone meal can't be used. (It will cancel the event and player will keep the bone meal)
 disabled:
   - "minecraft:brown_mushroom"
-  - "minecraft:red_mushroom"
+  - "red_mushroom"
   - "minecraft:crimson_fungus"
   - "minecraft:warped_fungus"
-  - "minecraft:cocoa"
+  - "COCOA"
+  - "BAMBOO"
+  - azalea
+  - flowering_azalea
+  - sugar_cane
+  - mangrove_propagule
 
 # Limit the growth stage of the plant to a certain stage
 # Default config limit to max growth stage -1. To keep vanilla behavior, remove the plant. To disable the instant growth of a plant, set the limit to 0.
-limitGowthStage:
-  wheat: 6
-  carrot: 6
-  potato: 6
-  beetroot: 2
+limit_gowth_stage:
+  "minecraft:wheat": 6
+  CARROTS: 6
+  POTATOES: 6
+  BEETROOTS: 2
   melon_stem: 6
   pumpkin_stem: 6
+  sweet_berry_bush: 2
   oak_sapling: 1
   spruce_sapling: 1
   birch_sapling: 1
@@ -30,6 +36,18 @@ limitGowthStage:
   dark_oak_sapling: 1
   pale_oak_sapling: 1
   cherry_sapling: 1
-  azalea: 1
-  flowering_azalea: 1
-  mangrove_propagule: 1
+
+# List of game mode where the player can use bone meal on click no matter what
+# Default: CREATIVE, SPECTATOR
+bypass_game_mode:
+  - CREATIVE
+  - SPECTATOR
+
+messages:
+  enable: false
+  bone_meal_disabled: "Bone meal is disabled on this block."
+  bone_meal_disabled_color: "#FF0000"
+
+sounds:
+  enable: false
+  bone_meal_disabled: "entity.villager.no"

@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.1.O
+Bone meal use can be disabled for plants and blocks.
+Bone meal use can be limited for all ageable plants and sapling.
+
 # 0.0.2
 reload command
 
