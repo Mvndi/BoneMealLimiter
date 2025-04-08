@@ -1,3 +1,5 @@
+import io.papermc.hangarpublishplugin.model.Platforms
+
 plugins {
     `java-library`
     id("io.github.goooler.shadow") version "8.1.7"
@@ -5,6 +7,7 @@ plugins {
     checkstyle // Ensures correctly formatted code
     pmd // Code quality checks
     id("xyz.jpenilla.run-paper") version "2.3.1" // Paper server for testing/hotloading JVM
+    id("io.papermc.hangar-publish-plugin") version "0.1.3"
 }
 
 group = "net.mvndicraft"
@@ -107,5 +110,26 @@ tasks.register("echoVersion") {
 tasks.register("echoReleaseName") {
     doLast {
         println("${project.version} [${supportedMinecraftVersions}]")
+    }
+}
+
+val versionString: String = version as String
+val isRelease: Boolean = !versionString.contains("SNAPSHOT")
+
+hangarPublish { // ./gradlew publishPluginPublicationToHangar
+    publications.register("plugin") {
+        version.set(project.version as String)
+        channel.set(if (isRelease) "Release" else "Snapshot")
+        id.set(project.name)
+        apiKey.set(System.getenv("HANGAR_API_TOKEN"))
+        platforms {
+            register(Platforms.PAPER) {
+                url = "https://github.com/Mvndi/"+project.name+"/releases/download/1.6.14/"+project.name+"-"+versionString+".jar"
+
+                // Set platform versions from gradle.properties file
+                val versions: List<String> = supportedMinecraftVersions.replace(" ", "").split(",")
+                platformVersions.set(versions)
+            }
+        }
     }
 }
