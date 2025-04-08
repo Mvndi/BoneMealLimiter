@@ -20,7 +20,7 @@ The plugin jar file will be in build/libs/
 
 ## TODO
 
-1. Create the reload command.
+<!-- 1. Create the reload command. -->
 2. Add a listener that react to bone meal use according to the config limitation.
 3. Test bone meal limitation with MockBukkit is possible.
 4. Test ingame.
