@@ -139,6 +139,6 @@ sonar {
   properties {
     property("sonar.projectKey", "Mvndi_BoneMealLimiter_c0328ae7-6dc7-421e-a6fa-eb713d1b2f68")
     property("sonar.projectName", "BoneMealLimiter")
-    property("sonar.host.url", "https://mvndisonar.formiko.fr/")
+    property("sonar.host.url", "https://mvndisonar.formiko.fr")
   }
 }
