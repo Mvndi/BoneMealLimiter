@@ -39,13 +39,11 @@ public class BoneMealListener implements Listener {
                     Block block = event.getClickedBlock();
                     if (block.getState() instanceof BlockState state) {
                         int age = getAgeOrStage(state);
-                        if (age != -1) {
-                            if (age >= maxStage) {
-                                BoneMealLimiterPlugin.debug(
-                                        () -> "Bone meal is disabled on this block when max stage = " + maxStage);
-                                event.setCancelled(true);
-                                soundOrMessageNo(block, player);
-                            }
+                        if (age != -1 && age >= maxStage) {
+                            BoneMealLimiterPlugin
+                                    .debug(() -> "Bone meal is disabled on this block when max stage = " + maxStage);
+                            event.setCancelled(true);
+                            soundOrMessageNo(block, player);
                         }
                     }
                 }

@@ -10,13 +10,11 @@ import org.bukkit.entity.Player;
  * Tool functions
  */
 public class BoneMealLimiter {
-    private BoneMealLimiter() {
-    }
+    private BoneMealLimiter() {}
 
     public static boolean isAffected(@Nullable Player player) {
-        return player == null ? false
-                : !BoneMealLimiterPlugin.getInstance().getConfig().getObject("bypassGameModeEnum", EnumSet.class)
-                        .contains(player.getGameMode());
+        return player != null && !BoneMealLimiterPlugin.getInstance().getConfig()
+                .getObject("bypassGameModeEnum", EnumSet.class).contains(player.getGameMode());
     }
 
     public static boolean isBoneMealDisabledOn(Material material) {
