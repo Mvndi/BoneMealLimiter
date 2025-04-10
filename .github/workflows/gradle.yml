@@ -24,8 +24,8 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
     # build
-    - name: Build with Gradle Wrapper
-      run: ./gradlew build
+    - name: Build & anaylse with Gradle Wrapper
+      run: ./gradlew build sonar --info
       env:
         MVNDI_MVN_USER: ${{ secrets.MVNDI_MVN_USER }}
         MVNDI_MVN_KEY: ${{ secrets.MVNDI_MVN_KEY }}

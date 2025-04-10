@@ -8,10 +8,11 @@ plugins {
     pmd // Code quality checks
     id("xyz.jpenilla.run-paper") version "2.3.1" // Paper server for testing/hotloading JVM
     id("io.papermc.hangar-publish-plugin") version "0.1.3"
+    id("org.sonarqube") version "6.0.1.5171"
 }
 
 group = "net.mvndicraft"
-version = "1.0.3"
+version = "1.0.5"
 description = "Limit the bone meal use with config."
 java.sourceCompatibility = JavaVersion.VERSION_21
 var mainMinecraftVersion = "1.21.4"
@@ -132,4 +133,12 @@ hangarPublish { // ./gradlew publishPluginPublicationToHangar
             }
         }
     }
+}
+
+sonar {
+  properties {
+    property("sonar.projectKey", "Mvndi_BoneMealLimiter_c0328ae7-6dc7-421e-a6fa-eb713d1b2f68")
+    property("sonar.projectName", "BoneMealLimiter")
+    property("sonar.host.url", "https://mvndisonar.formiko.fr/")
+  }
 }
