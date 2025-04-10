@@ -27,6 +27,7 @@ jobs:
     - name: Build & anaylse with Gradle Wrapper
       run: ./gradlew build sonar --info
       env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         MVNDI_MVN_USER: ${{ secrets.MVNDI_MVN_USER }}
         MVNDI_MVN_KEY: ${{ secrets.MVNDI_MVN_KEY }}
     # artifact upload
