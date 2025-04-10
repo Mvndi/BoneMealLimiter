@@ -66,6 +66,9 @@ public final class BoneMealLimiterPlugin extends JavaPlugin {
     public static void log(Level level, String message) {
         getInstance().getLogger().log(level, message);
     }
+    public static void log(Level level, Supplier<String> messageProvider) {
+        getInstance().getLogger().log(level, messageProvider);
+    }
     public static void log(Level level, String message, Throwable e) {
         getInstance().getLogger().log(level, message, e);
     }
@@ -76,7 +79,7 @@ public final class BoneMealLimiterPlugin extends JavaPlugin {
     }
     public static void debug(Supplier<String> messageProvider) {
         if (getInstance().getConfig().getBoolean("debug", false)) {
-            log(Level.INFO, messageProvider.get());
+            log(Level.INFO, messageProvider);
         }
     }
     public static void info(String message) {
