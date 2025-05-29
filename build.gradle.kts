@@ -1,5 +1,3 @@
-import io.papermc.hangarpublishplugin.model.Platforms
-
 plugins {
     `java-library`
     id("io.github.goooler.shadow") version "8.1.7"
@@ -132,7 +130,7 @@ hangarPublish { // ./gradlew publishPluginPublicationToHangar
         id.set(project.name)
         apiKey.set(System.getenv("HANGAR_API_TOKEN"))
         platforms {
-            register(Platforms.PAPER) {
+            register(io.papermc.hangarpublishplugin.model.Platforms.PAPER) {
                 url = "https://github.com/Mvndi/"+project.name+"/releases/download/"+versionString+"/"+project.name+"-"+versionString+".jar"
 
                 // Set platform versions from gradle.properties file
