@@ -1,5 +1,8 @@
 # Changelog
 
+# 1.0.6
+Support from 1.20 to 1.21.5
+
 # 0.1.O
 Bone meal use can be disabled for plants and blocks.
 Bone meal use can be limited for all ageable plants and sapling.
