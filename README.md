@@ -16,6 +16,9 @@ Config can also be set to disable the bone meal on some plants or blocks.
 
 You can give `bonemeallimiter.admin` perm to your non OP admins.
 
+## Statistics
+[![bStats Graph Data](https://bstats.org/signatures/bukkit/bonemeallimiter.svg)](https://bstats.org/plugin/bukkit/BoneMealLimiter/25354)
+
 ## Build
 `./gradlew assemble`
 The plugin jar file will be in build/libs/
