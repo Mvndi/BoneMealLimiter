@@ -259,6 +259,6 @@ modrinth {
     syncBodyFrom = rootProject.file("README.md").readText()
 }
 
-// tasks.named("modrinth") {
-//     dependsOn(tasks.named("modrinthSyncBody"))
-// }
+tasks.named("modrinth") {
+    dependsOn(tasks.named("modrinthSyncBody"))
+}
