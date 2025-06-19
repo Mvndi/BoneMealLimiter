@@ -1,4 +1,4 @@
-[**Discord**](https://discord.gg/RPNbtRSFqG) | [**Hangar**](https://hangar.papermc.io/Hydrolien/BoneMealLimiter) | [**GitHub**](https://github.com/Mvndi/BoneMealLimiter)
+[**Discord**](https://discord.gg/RPNbtRSFqG) | [**Hangar**](https://hangar.papermc.io/Hydrolien/BoneMealLimiter) | [**Modrinth**](https://modrinth.com/plugin/bonemeallimiter) | [**GitHub**](https://github.com/Mvndi/BoneMealLimiter)
 
 # BoneMealLimiter
 
@@ -19,11 +19,3 @@ You can give `bonemeallimiter.admin` perm to your non OP admins.
 ## Build
 `./gradlew assemble`
 The plugin jar file will be in build/libs/
-
-
-## TODO
-
-<!-- 1. Create the reload command. -->
-<!-- 2. Add a listener that react to bone meal use according to the config limitation. -->
-3. Test bone meal limitation with MockBukkit if possible.
-4. Test ingame.
