@@ -1,3 +1,11 @@
+[download]: https://img.shields.io/github/downloads/Mvndi/BoneMealLimiter/total
+[downloadLink]: https://github.com/Mvndi/BoneMealLimiter/releases
+[discord-shield]: https://img.shields.io/discord/728592434577014825?label=discord
+[discord-invite]: https://discord.gg/RPNbtRSFqG
+
+[ ![download][] ][downloadLink]
+[ ![discord-shield][] ][discord-invite]
+
 [**Discord**](https://discord.gg/RPNbtRSFqG) | [**Hangar**](https://hangar.papermc.io/Hydrolien/BoneMealLimiter) | [**Modrinth**](https://modrinth.com/plugin/bonemeallimiter) | [**GitHub**](https://github.com/Mvndi/BoneMealLimiter)
 
 # BoneMealLimiter

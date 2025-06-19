@@ -247,8 +247,8 @@ modrinth {
     projectId.set("bomemeallimiter") // This can be the project ID or the slug. Either will work!
     versionNumber.set("${project.version}") // You don't need to set this manually. Will fail if Modrinth has this version already
     versionType.set("release") // This is the default -- can also be `beta` or `alpha`
-    // uploadFile.set(tasks.assemble) // With Loom, this MUST be set to `remapJar` instead of `jar`!
-    uploadFile.set(layout.buildDirectory.dir("libs").get().asFile.absolutePath + "${project.name}-${project.version}.jar")
+    uploadFile.set(tasks.jar) // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    // uploadFile.set(layout.buildDirectory.dir("libs").get().asFile.absolutePath + "/${project.name}-${project.version}.jar")
     gameVersions.addAll(expandMinecraftVersions(supportedMinecraftVersions)) // Must be an array, even with only one version
     loaders.addAll("paper", "folia", "purpur", "spigot", "bukkit") // Must also be an array
     changelog.set(
@@ -259,6 +259,6 @@ modrinth {
     syncBodyFrom = rootProject.file("README.md").readText()
 }
 
-tasks.named("modrinth") {
-    dependsOn(tasks.named("modrinthSyncBody"))
-}
+// tasks.named("modrinth") {
+//     dependsOn(tasks.named("modrinthSyncBody"))
+// }
