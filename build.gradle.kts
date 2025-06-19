@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "net.mvndicraft"
-version = "1.0.8"
+version = "1.0.9"
 description = "Limit the bone meal use with config."
 java.sourceCompatibility = JavaVersion.VERSION_21
 var mainMinecraftVersion = "1.21.6"
@@ -247,7 +247,8 @@ modrinth {
     projectId.set("bomemeallimiter") // This can be the project ID or the slug. Either will work!
     versionNumber.set("${project.version}") // You don't need to set this manually. Will fail if Modrinth has this version already
     versionType.set("release") // This is the default -- can also be `beta` or `alpha`
-    uploadFile.set(tasks.assemble) // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    // uploadFile.set(tasks.assemble) // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    uploadFile.set(layout.buildDirectory.dir("libs").get().asFile.absolutePath + "${project.name}-${project.version}.jar")
     gameVersions.addAll(expandMinecraftVersions(supportedMinecraftVersions)) // Must be an array, even with only one version
     loaders.addAll("paper", "folia", "purpur", "spigot", "bukkit") // Must also be an array
     changelog.set(
