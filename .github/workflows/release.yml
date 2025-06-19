@@ -52,7 +52,13 @@ jobs:
 
       - name: Read the first lines of CHANGELOG.md from gradle
         id: changelog
-        run: echo "changelog=$(./gradlew -q echoLatestVersionChangelog)" >> $GITHUB_OUTPUT
+        run: |
+          {
+            echo "changelog<<EOF"
+            ./gradlew -q echoLatestVersionChangelog
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
+
         
       - name: Create Release
         id: createRelease
