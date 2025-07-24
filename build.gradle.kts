@@ -11,11 +11,11 @@ plugins {
 }
 
 group = "net.mvndicraft"
-version = "1.0.10"
+version = "1.0.11"
 description = "Limit the bone meal use with config."
 java.sourceCompatibility = JavaVersion.VERSION_21
-var mainMinecraftVersion = "1.21.7"
-val supportedMinecraftVersions = "1.20 - 1.21.7"
+var mainMinecraftVersion = "1.21.8"
+val supportedMinecraftVersions = "1.20 - 1.21.8"
 
 
 repositories {
@@ -214,7 +214,7 @@ hangarPublish { // ./gradlew publishPluginPublicationToHangar
 
 // Do an array of game versions from supportedMinecraftVersions
 fun expandMinecraftVersions(range: String): List<String> {
-    val latestPatches = mapOf("1.20" to 6, "1.21" to 7)
+    val latestPatches = mapOf("1.20" to 6, "1.21" to 8)
 
     fun String.toMinorAndPatch() = split('.').let {
         if (it.size == 2) it.joinToString(".") to 0 else "${it[0]}.${it[1]}" to it[2].toInt()
