@@ -1,3 +1,6 @@
+# 1.1.0
+Limit dispensers dispensing bone meal as for players.
+
 # 1.0.14
 Support from 1.20 to 1.21.11
 
