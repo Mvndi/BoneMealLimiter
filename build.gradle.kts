@@ -129,7 +129,7 @@ val extractChangelog = tasks.register("extractChangelog") {
     group = "documentation"
     description = "Extracts the changelog for the current project version from CHANGELOG.md, including the version header."
 
-    val changelog = project.objects.property(String::class)
+    val changelog: Property<String> = project.objects.property(String::class)
     outputs.upToDateWhen { false }
 
     doLast {
