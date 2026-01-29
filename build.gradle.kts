@@ -181,7 +181,7 @@ tasks.register("echoLatestVersionChangelog") {
     dependsOn(tasks.named("extractChangelog"))
 
     doLast {
-        println((extractChangelog.get().extensions.getByName("changelog") as Property<String>).get())
+        println((extractChangelog.get().extensions.findByType(Property::class.java) as Property<String>).get())
     }
 }
 
@@ -197,7 +197,7 @@ hangarPublish { // ./gradlew publishPluginPublicationToHangar
         apiKey.set(System.getenv("HANGAR_API_TOKEN"))
         changelog.set(
             extractChangelog.map {
-                (it.extensions.getByName("changelog") as Property<String>).get()
+                (it.extensions.findByType(Property::class.java) as Property<String>).get()
             }
         )
         platforms {
@@ -253,7 +253,7 @@ modrinth {
     loaders.addAll("paper", "folia", "purpur", "spigot", "bukkit") // Must also be an array
     changelog.set(
         extractChangelog.map {
-            (it.extensions.getByName("changelog") as Property<String>).get()
+            (it.extensions.findByType(Property::class.java) as Property<String>).get()
         }
     )
     syncBodyFrom = rootProject.file("README.md").readText()
