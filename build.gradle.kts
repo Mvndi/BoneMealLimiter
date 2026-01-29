@@ -1,6 +1,6 @@
 plugins {
     `java-library`
-    id("io.github.goooler.shadow") version "8.1.8"
+    id("com.gradleup.shadow") version "9.3.1"
     `maven-publish`
     checkstyle // Ensures correctly formatted code
     pmd // Code quality checks
