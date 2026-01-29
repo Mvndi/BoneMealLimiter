@@ -27,7 +27,7 @@ public final class BoneMealLimiterPlugin extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new BoneMealListener(), this);
 
-        reloadConfig();
+        // reloadConfig();
     }
 
     @Override
