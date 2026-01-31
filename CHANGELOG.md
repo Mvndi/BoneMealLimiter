@@ -1,3 +1,6 @@
+# 1.1.1
+Plugin does not crash anymore when config material or gamemode is wrong. It display a warning instead.
+
 # 1.1.0
 Limit dispensers dispensing bone meal as for players.
 

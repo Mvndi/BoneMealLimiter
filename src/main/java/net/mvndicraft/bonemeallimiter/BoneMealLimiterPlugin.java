@@ -4,6 +4,7 @@ import co.aikar.commands.PaperCommandManager;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.logging.Level;
@@ -12,6 +13,7 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.Nullable;
 
 public final class BoneMealLimiterPlugin extends JavaPlugin {
 
@@ -48,19 +50,38 @@ public final class BoneMealLimiterPlugin extends JavaPlugin {
     }
 
     private Set<GameMode> getConfigGameMode(String key) {
-        return getConfig().getStringList(key).stream().map(String::toUpperCase).map(GameMode::valueOf)
+        return getConfig().getStringList(key).stream().map(gm -> safeMatchGameMode(gm, key)).filter(Objects::nonNull)
                 .collect(Collectors.toCollection(() -> EnumSet.noneOf(GameMode.class)));
     }
 
     private Set<Material> getConfigMaterials(String key) {
-        return getConfig().getStringList(key).stream().map(Material::matchMaterial)
-                .collect(Collectors.toCollection(() -> EnumSet.noneOf(Material.class)));
+        return getConfig().getStringList(key).stream().map(name -> safeMatchMaterial(name, key))
+                .filter(Objects::nonNull).collect(Collectors.toCollection(() -> EnumSet.noneOf(Material.class)));
     }
     private Map<Material, Integer> getConfigMaterialsMap(String key) {
         return getConfig().getConfigurationSection(key).getKeys(false).stream()
-                .collect(Collectors.toMap(Material::matchMaterial, k -> getConfig().getInt(key + "." + k), (a, b) -> a,
-                        () -> new EnumMap<>(Material.class)));
+                .collect(Collectors.toMap(name -> safeMatchMaterial(name, key), k -> getConfig().getInt(key + "." + k),
+                        (a, b) -> a, () -> new EnumMap<>(Material.class)));
     }
+
+    @Nullable
+    private Material safeMatchMaterial(String name, String key) {
+        Material mat = Material.matchMaterial(name);
+        if (mat == null) {
+            getLogger().warning(() -> "Invalid material in config at '" + key + "': " + name);
+        }
+        return mat;
+    }
+    @Nullable
+    private GameMode safeMatchGameMode(String name, String key) {
+        try {
+            return GameMode.valueOf(name.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            getLogger().warning(() -> "Invalid GameMode in config at '" + key + "': " + name);
+            return null;
+        }
+    }
+
 
     // Usual log with debug level
     public static void log(Level level, String message) {
