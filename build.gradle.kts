@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "net.mvndicraft"
-version = "1.1.1"
+version = "1.1.2"
 description = "Limit the bone meal use with config."
 java.sourceCompatibility = JavaVersion.VERSION_21
 var mainMinecraftVersion = "1.21.11"

@@ -37,9 +37,7 @@ public final class BoneMealLimiterPlugin extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    public static BoneMealLimiterPlugin getInstance() {
-        return getPlugin(BoneMealLimiterPlugin.class);
-    }
+    public static BoneMealLimiterPlugin getInstance() { return getPlugin(BoneMealLimiterPlugin.class); }
 
     @Override
     public void reloadConfig() {
@@ -55,13 +53,15 @@ public final class BoneMealLimiterPlugin extends JavaPlugin {
     }
 
     private Set<Material> getConfigMaterials(String key) {
-        return getConfig().getStringList(key).stream().map(name -> safeMatchMaterial(name, key))
-                .filter(Objects::nonNull).collect(Collectors.toCollection(() -> EnumSet.noneOf(Material.class)));
+        return getConfig().getStringList(key).stream().map(name -> safeMatchMaterial(name, key)).filter(Objects::nonNull)
+                .collect(Collectors.toCollection(() -> EnumSet.noneOf(Material.class)));
     }
     private Map<Material, Integer> getConfigMaterialsMap(String key) {
-        return getConfig().getConfigurationSection(key).getKeys(false).stream()
-                .collect(Collectors.toMap(name -> safeMatchMaterial(name, key), k -> getConfig().getInt(key + "." + k),
-                        (a, b) -> a, () -> new EnumMap<>(Material.class)));
+        return getConfig().getConfigurationSection(key).getKeys(false).stream().map(name -> {
+            Material mat = safeMatchMaterial(name, key);
+            return mat == null ? null : Map.entry(mat, getConfig().getInt(key + "." + name));
+        }).filter(Objects::nonNull)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a, () -> new EnumMap<>(Material.class)));
     }
 
     @Nullable
@@ -84,15 +84,9 @@ public final class BoneMealLimiterPlugin extends JavaPlugin {
 
 
     // Usual log with debug level
-    public static void log(Level level, String message) {
-        getInstance().getLogger().log(level, message);
-    }
-    public static void log(Level level, Supplier<String> messageProvider) {
-        getInstance().getLogger().log(level, messageProvider);
-    }
-    public static void log(Level level, String message, Throwable e) {
-        getInstance().getLogger().log(level, message, e);
-    }
+    public static void log(Level level, String message) { getInstance().getLogger().log(level, message); }
+    public static void log(Level level, Supplier<String> messageProvider) { getInstance().getLogger().log(level, messageProvider); }
+    public static void log(Level level, String message, Throwable e) { getInstance().getLogger().log(level, message, e); }
     public static void debug(String message) {
         if (getInstance().getConfig().getBoolean("debug", false)) {
             log(Level.INFO, message);
@@ -103,22 +97,10 @@ public final class BoneMealLimiterPlugin extends JavaPlugin {
             log(Level.INFO, messageProvider);
         }
     }
-    public static void info(String message) {
-        log(Level.INFO, message);
-    }
-    public static void info(String message, Throwable e) {
-        log(Level.INFO, message, e);
-    }
-    public static void warning(String message) {
-        log(Level.WARNING, message);
-    }
-    public static void warning(String message, Throwable e) {
-        log(Level.WARNING, message, e);
-    }
-    public static void error(String message) {
-        log(Level.SEVERE, message);
-    }
-    public static void error(String message, Throwable e) {
-        log(Level.SEVERE, message, e);
-    }
+    public static void info(String message) { log(Level.INFO, message); }
+    public static void info(String message, Throwable e) { log(Level.INFO, message, e); }
+    public static void warning(String message) { log(Level.WARNING, message); }
+    public static void warning(String message, Throwable e) { log(Level.WARNING, message, e); }
+    public static void error(String message) { log(Level.SEVERE, message); }
+    public static void error(String message, Throwable e) { log(Level.SEVERE, message, e); }
 }
