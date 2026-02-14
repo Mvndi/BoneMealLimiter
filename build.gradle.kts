@@ -4,14 +4,14 @@ plugins {
     `maven-publish`
     checkstyle // Ensures correctly formatted code
     pmd // Code quality checks
-    id("org.sonarqube") version "6.0.1.5171" // Advanced code quality checks
+    id("org.sonarqube") version "7.2.2.6593" // Advanced code quality checks
     id("xyz.jpenilla.run-paper") version "2.3.1" // Paper server for testing/hotloading JVM
     id("io.papermc.hangar-publish-plugin") version "0.1.3"
     id("com.modrinth.minotaur") version "2.+" // cf https://github.com/modrinth/minotaur
 }
 
 group = "net.mvndicraft"
-version = "1.1.2"
+version = "1.1.3"
 description = "Limit the bone meal use with config."
 java.sourceCompatibility = JavaVersion.VERSION_21
 var mainMinecraftVersion = "1.21.11"
