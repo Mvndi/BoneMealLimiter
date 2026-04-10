@@ -28,6 +28,7 @@ public final class BoneMealLimiterPlugin extends JavaPlugin {
         manager.registerCommand(new BoneMealLimiterCommand());
 
         getServer().getPluginManager().registerEvents(new BoneMealListener(), this);
+        getServer().getPluginManager().registerEvents(new BoneMealFlowers(), this);
     }
 
     @Override
