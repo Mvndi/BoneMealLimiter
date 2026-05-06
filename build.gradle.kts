@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "net.mvndicraft"
-version = "1.1.3"
+version = "1.2.0"
 description = "Limit the bone meal use with config."
 java.sourceCompatibility = JavaVersion.VERSION_21
 var mainMinecraftVersion = "1.21.11"
@@ -94,6 +94,7 @@ tasks {
     runServer {
         minecraftVersion("$mainMinecraftVersion")
     }
+    runPaper.folia.registerTask()
 
     test {
         useJUnitPlatform()
