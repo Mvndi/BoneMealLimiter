@@ -28,6 +28,7 @@ public final class BoneMealLimiterPlugin extends JavaPlugin {
         manager.registerCommand(new BoneMealLimiterCommand());
 
         getServer().getPluginManager().registerEvents(new BoneMealListener(), this);
+        getServer().getPluginManager().registerEvents(new BoneMealDuplicateListener(), this);
     }
 
     @Override
@@ -41,25 +42,50 @@ public final class BoneMealLimiterPlugin extends JavaPlugin {
     public void reloadConfig() {
         super.reloadConfig();
         getConfig().set("bypassGameModeEnum", getConfigGameMode("bypass_game_mode"));
-        getConfig().set("disabledMaterials", getConfigMaterials("disabled"));
+        Set<Material> disabled = getConfigMaterials("disabled");
+        getConfig().set("disabledMaterials", disabled);
         getConfig().set("limitGowthStageMaterials", getConfigMaterialsMap("limit_gowth_stage"));
+        Set<Material> duplicate = getConfigMaterials("duplicate_item");
+        duplicate.removeAll(disabled);
+        getConfig().set("duplicateItem", duplicate);
+
+        info("Reloaded config.");
+        debug(() -> "bypass_game_mode: " + getConfig().getObject("bypassGameModeEnum", EnumSet.class));
+        debug(() -> "disabled: " + getConfig().getObject("disabledMaterials", EnumSet.class));
+        debug(() -> "limit_gowth_stage: " + getConfig().getObject("limitGowthStageMaterials", EnumMap.class));
+        debug(() -> "duplicate_item: " + getConfig().getObject("duplicateItem", EnumSet.class));
     }
 
     private Set<GameMode> getConfigGameMode(String key) {
-        return getConfig().getStringList(key).stream().map(gm -> safeMatchGameMode(gm, key)).filter(Objects::nonNull)
-                .collect(Collectors.toCollection(() -> EnumSet.noneOf(GameMode.class)));
+        try {
+            return getConfig().getStringList(key).stream().map(gm -> safeMatchGameMode(gm, key)).filter(Objects::nonNull)
+                    .collect(Collectors.toCollection(() -> EnumSet.noneOf(GameMode.class)));
+        } catch (Exception e) {
+            getLogger().warning(() -> "Invalid config at '" + key + "': " + e.getMessage());
+            return EnumSet.noneOf(GameMode.class);
+        }
     }
 
     private Set<Material> getConfigMaterials(String key) {
-        return getConfig().getStringList(key).stream().map(name -> safeMatchMaterial(name, key)).filter(Objects::nonNull)
-                .collect(Collectors.toCollection(() -> EnumSet.noneOf(Material.class)));
+        try {
+            return getConfig().getStringList(key).stream().map(name -> safeMatchMaterial(name, key)).filter(Objects::nonNull)
+                    .collect(Collectors.toCollection(() -> EnumSet.noneOf(Material.class)));
+        } catch (Exception e) {
+            getLogger().warning(() -> "Invalid config at '" + key + "': " + e.getMessage());
+            return EnumSet.noneOf(Material.class);
+        }
     }
     private Map<Material, Integer> getConfigMaterialsMap(String key) {
-        return getConfig().getConfigurationSection(key).getKeys(false).stream().map(name -> {
-            Material mat = safeMatchMaterial(name, key);
-            return mat == null ? null : Map.entry(mat, getConfig().getInt(key + "." + name));
-        }).filter(Objects::nonNull)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a, () -> new EnumMap<>(Material.class)));
+        try {
+            return getConfig().getConfigurationSection(key).getKeys(false).stream().map(name -> {
+                Material mat = safeMatchMaterial(name, key);
+                return mat == null ? null : Map.entry(mat, getConfig().getInt(key + "." + name));
+            }).filter(Objects::nonNull)
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a, () -> new EnumMap<>(Material.class)));
+        } catch (Exception e) {
+            getLogger().warning(() -> "Invalid config at '" + key + "': " + e.getMessage());
+            return new EnumMap<>(Material.class);
+        }
     }
 
     @Nullable

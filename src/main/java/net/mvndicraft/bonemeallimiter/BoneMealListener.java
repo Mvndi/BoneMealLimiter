@@ -45,17 +45,15 @@ public class BoneMealListener implements Listener {
             String source = event.getPlayer() == null ? "Dispenser " : "Player " + event.getPlayer().getName();
             Block block = event.getBlock();
             BlockState newState = event.getBlocks().getFirst();
-            BoneMealLimiterPlugin.debug(() -> "BlockFertilizeEvent: " + source + " used bone meal on block "
-                    + block.getType() + " with new state " + newState);
+            BoneMealLimiterPlugin.debug(
+                    () -> "BlockFertilizeEvent: " + source + " used bone meal on block " + block.getType() + " with new state " + newState);
             // Age might have been increase over the max allowed value.
-            if (block.getBlockData() instanceof Ageable && newState != null
-                    && newState.getBlockData() instanceof Ageable newAgeable) {
+            if (block.getBlockData() instanceof Ageable && newState != null && newState.getBlockData() instanceof Ageable newAgeable) {
                 int maxStage = BoneMealLimiter.getMaxStage(block.getType());
                 int newAge = newAgeable.getAge();
                 if (newAge > maxStage) {
                     BoneMealLimiterPlugin
-                            .debug(() -> "BlockFertilizeEvent: Bone meal is capped on this block when max stage = "
-                                    + maxStage);
+                            .debug(() -> "BlockFertilizeEvent: Bone meal is capped on this block when max stage = " + maxStage);
                     newAgeable.setAge(maxStage);
                     newState.setBlockData(newAgeable);
                 }
@@ -94,8 +92,7 @@ public class BoneMealListener implements Listener {
             if (block.getState() instanceof BlockState state) {
                 int age = getAgeOrStage(state);
                 if (age != -1 && age >= maxStage) {
-                    BoneMealLimiterPlugin
-                            .debug(() -> "Bone meal is disabled on this block when max stage = " + maxStage);
+                    BoneMealLimiterPlugin.debug(() -> "Bone meal is disabled on this block when max stage = " + maxStage);
                     cancelled = true;
                 }
             }
@@ -126,11 +123,9 @@ public class BoneMealListener implements Listener {
 
     private void soundOrMessageNo(Block block, @Nullable Player player) {
         if (BoneMealLimiterPlugin.getInstance().getConfig().getBoolean("messages.enable")) {
-            String message = BoneMealLimiterPlugin.getInstance().getConfig().getString("messages.bone_meal_disabled",
-                    "");
+            String message = BoneMealLimiterPlugin.getInstance().getConfig().getString("messages.bone_meal_disabled", "");
             if (!message.isEmpty() && player != null) {
-                String color = BoneMealLimiterPlugin.getInstance().getConfig()
-                        .getString("messages.bone_meal_disabled_color", "");
+                String color = BoneMealLimiterPlugin.getInstance().getConfig().getString("messages.bone_meal_disabled_color", "");
                 player.sendMessage(Component.text(message, TextColor.fromHexString(color)));
             }
         }

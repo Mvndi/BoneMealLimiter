@@ -51,3 +51,23 @@ messages:
 sounds:
   enable: false
   bone_meal_disabled: "entity.villager.no"
+  duplicate_item_enable: true
+  bone_meal_duplicate_item: "item.bone_meal.use"
+
+particles:
+  duplicate_item_enable: true
+
+#List of plants where bonemeal can be used to duplicate them, no need to include the 2 block heigh flower variants that already duplicate on bone meal use.
+duplicate_item: []
+  # - DANDELION
+  # - POPPY
+  # - BLUE_ORCHID
+  # - ALLIUM
+  # - AZURE_BLUET
+  # - RED_TULIP
+  # - ORANGE_TULIP
+  # - WHITE_TULIP
+  # - PINK_TULIP
+  # - OXEYE_DAISY
+  # - CORNFLOWER
+  # - LILY_OF_THE_VALLEY

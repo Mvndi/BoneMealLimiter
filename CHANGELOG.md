@@ -1,3 +1,6 @@
+# 1.2.0
+Some item can be duplicated with bone meal as for the 2 block heigh flower variants.
+
 # 1.1.2
 Plugin does not crash anymore when config material map is wrong. It display a warning instead.
 
