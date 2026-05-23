@@ -1,21 +1,20 @@
 plugins {
     `java-library`
-    id("com.gradleup.shadow") version "9.3.1"
+    id("com.gradleup.shadow") version "9.3.1" // "9.4.1"
     `maven-publish`
     checkstyle // Ensures correctly formatted code
     pmd // Code quality checks
-    id("org.sonarqube") version "7.2.2.6593" // Advanced code quality checks
-    id("xyz.jpenilla.run-paper") version "2.3.1" // Paper server for testing/hotloading JVM
-    id("io.papermc.hangar-publish-plugin") version "0.1.3"
+    id("org.sonarqube") version "7.3.0.8198" // Advanced code quality checks
+    id("xyz.jpenilla.run-paper") version "3.0.2" // Paper server for testing/hotloading JVM
+    id("io.papermc.hangar-publish-plugin") version "0.1.4"
     id("com.modrinth.minotaur") version "2.+" // cf https://github.com/modrinth/minotaur
 }
 
-group = "net.mvndicraft"
-version = "1.2.0"
+group = "net.mvndicraft.${project.name.lowercase()}"
+version = "1.2.1"
 description = "Limit the bone meal use with config."
-java.sourceCompatibility = JavaVersion.VERSION_21
-var mainMinecraftVersion = "1.21.11"
-val supportedMinecraftVersions = "1.20 - 1.21.11"
+var mainMinecraftVersion = "1.21.11" // 26.1.2
+val supportedMinecraftVersions = "1.20 - 1.21.11" // 26.1.2
 
 
 repositories {
@@ -29,12 +28,17 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:$mainMinecraftVersion-R0.1-SNAPSHOT")
+    // compileOnly("io.papermc.paper:paper-api:$mainMinecraftVersion.build.+")
 
-    implementation("org.bstats:bstats-bukkit:3.1.0")
+    implementation("org.bstats:bstats-bukkit:3.2.1")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.0")
     testImplementation("com.github.seeseemelk:MockBukkit-v1.21:3.107.0")
+}
+
+java {
+  toolchain.languageVersion.set(JavaLanguageVersion.of(21)) // 25
 }
 
 checkstyle {
@@ -83,7 +87,8 @@ tasks {
             "name" to project.name,
             "version" to project.version,
             "description" to project.description,
-            "apiVersion" to "1.20"
+            "apiVersion" to "1.20",
+            "group" to project.group
         )
         inputs.properties(props)
         filesMatching("paper-plugin.yml") {
@@ -215,7 +220,7 @@ hangarPublish { // ./gradlew publishPluginPublicationToHangar
 
 // Do an array of game versions from supportedMinecraftVersions
 fun expandMinecraftVersions(range: String): List<String> {
-    val latestPatches = mapOf("1.20" to 6, "1.21" to 10)
+    val latestPatches = mapOf("1.20" to 6, "1.21" to 11) //, "26.1" to 2
 
     fun String.toMinorAndPatch() = split('.').let {
         if (it.size == 2) it.joinToString(".") to 0 else "${it[0]}.${it[1]}" to it[2].toInt()

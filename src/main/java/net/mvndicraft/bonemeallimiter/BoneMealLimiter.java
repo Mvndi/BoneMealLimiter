@@ -2,9 +2,9 @@ package net.mvndicraft.bonemeallimiter;
 
 import java.util.EnumMap;
 import java.util.EnumSet;
-import javax.annotation.Nullable;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Tool functions
