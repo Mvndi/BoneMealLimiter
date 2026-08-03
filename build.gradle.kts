@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "net.mvndicraft.${project.name.lowercase()}"
-version = "1.2.1"
+version = "1.2.2"
 description = "Limit the bone meal use with config."
 val mainMinecraftVersion = "1.21.11" // 26.1.2
 val supportedMinecraftVersions = "1.20 - 26.2"
